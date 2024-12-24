@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  position: relative;
+  width: 60%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  background-color: slategrey;
+}
+
+h1{
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+}
+
+#messages {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.message{
+    width: auto;
+    padding: 10px;
+}
+
+#messages .myMes{
+    align-self: flex-end;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+#messages .hisMes{
+    align-self: flex-start;
+    background-color: #95e29a;
+    border-radius: 4px;
+}
+
+.sendMes{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.sendMes input{
+    width: 90%;
+}

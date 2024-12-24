@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>WebSocket</h1>
+    <div id="messages"></div>
+    <div class="sendMes">
+      <input
+      type="text"
+      name=""
+      id="messageInput"
+      placeholder="Введите сообщение"
+    />
+    <button onclick="sendMessage()" id="sendBtn">Отправить</button>
+    </div>
+    <script>
+      let socket = new WebSocket("ws:localhost:8080");
+      let UserId = null;
+      socket.addEventListener("open", function (event) {
+        console.log("соединение установлено");
+        UserId = Date.now();
+      });
+      socket.onmessage = (message) => {
+        console.log(JSON.parse(message.data));
+        const messages = JSON.parse(message.data);
+
+        messages.forEach((val) => {
+          console.log(UserId);
+          console.log(val.userId);
+          const messageDiv = document.getElementById("messages");
+          const newMessage = document.createElement("div");
+          newMessage.classList.add("message");
+          newMessage.classList.add(val.userId === UserId ? 'myMes' : 'hisMes');
+          newMessage.textContent = val.message;
+          messageDiv.appendChild(newMessage);
+        });
+      };
+      function sendMessage() {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value;
+        if (message.trim()) {
+          const data = { userId: UserId, message };
+          console.log(data)
+          socket.send(JSON.stringify(data));
+          messageInput.value = "";
+        }
+      }
+    </script>
+  </body>
+</html>
